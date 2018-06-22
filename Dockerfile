@@ -5,7 +5,7 @@ ARG APLINE_VERSION=3.7
 FROM ubuntu:${UBUNTU_VERSION} AS build
 
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y install git build-essential cmake libuv1-dev libmicrohttpd ocl-icd-opencl-dev
+RUN apt-get -y install git build-essential cmake libuv1-dev libmicrohttpd-dev ocl-icd-opencl-dev
 
 RUN git clone https://github.com/xmrig/xmrig-amd.git
 RUN cd xmrig && git checkout $(git describe --abbrev=0 --tags) && mkdir build
