@@ -8,7 +8,7 @@ RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y install git build-essential cmake libuv1-dev libmicrohttpd-dev ocl-icd-opencl-dev
 
 RUN git clone https://github.com/xmrig/xmrig-amd.git
-RUN cd xmrig-amd && git checkout $(git describe --abbrev=0 --tags) && mkdir build
+RUN cd xmrig-amd && git checkout $(git describe --abbrev=0 --tags --exclude *-beta) && mkdir build
 
 WORKDIR xmrig-amd/build
 RUN cmake .. ${CMAKE_OPTS} && make
@@ -31,6 +31,7 @@ RUN ./amdgpu-pro-${AMDGPU_VERSION}/amdgpu-install -y --headless --opencl=legacy,
     && rm -r amdgpu-pro-${AMDGPU_VERSION}
 
 RUN apt-get -y remove ca-certificates curl xz-utils
+RUN SUDO_FORCE_REMOVE=yes apt-get -y autoremove && apt-get -y clean autoclean
 COPY --from=build /xmrig-amd/build/xmrig-amd /usr/local/bin/xmrig-amd
 
 ENTRYPOINT ["xmrig-amd"]
