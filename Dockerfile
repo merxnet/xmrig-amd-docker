@@ -18,17 +18,18 @@ FROM ubuntu:${UBUNTU_VERSION}
 
 LABEL maintainer='docker@merxnet.io'
 
-ENV AMDGPU_VERSION 18.20-606296
+ENV UBUNTU=${UBUNTU_VERSION}
+ENV AMDGPU_VERSION=18.20-606296
 
 RUN apt-get -y update && apt-get -y upgrade && \
-    apt-get -y install ca-certificates curl xz-utils && \
-    curl -L -O --referer https://support.amd.com https://www2.ati.com/drivers/linux/ubuntu/18.04/amdgpu-pro-${AMDGPU_VERSION}.tar.xz && \
+    apt-get -y install --no-install-recommends ca-certificates curl xz-utils && \
+    curl -L -O --referer https://support.amd.com https://www2.ati.com/drivers/linux/ubuntu/${UBUNTU}/amdgpu-pro-${AMDGPU_VERSION}.tar.xz && \
     tar -xvJf amdgpu-pro-${AMDGPU_VERSION}.tar.xz && \
     rm amdgpu-pro-${AMDGPU_VERSION}.tar.xz && \
-    ./amdgpu-pro-${AMDGPU_VERSION}/amdgpu-install -y --headless --opencl=legacy,rocm && \
-    rm -r amdgpu-pro-${AMDGPU_VERSION} && \
     SUDO_FORCE_REMOVE=yes apt-get -y remove --purge ca-certificates curl xz-utils $(apt-mark showauto) && \
-    rm -rf /var/lib/apt/lists/*
+    ./amdgpu-pro-${AMDGPU_VERSION}/amdgpu-install -y --no-install-recommends --headless --opencl=legacy,rocm && \
+    rm -r amdgpu-pro-${AMDGPU_VERSION} && \
+    rm -rf /var/lib/apt/lists/* /usr/src/amdgpu-18.20-606296/ /var/opt/amdgpu-pro-local/
 
 COPY --from=build /xmrig-amd/build/xmrig-amd /usr/local/bin/xmrig-amd
 
