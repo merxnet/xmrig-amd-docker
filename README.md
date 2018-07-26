@@ -38,7 +38,7 @@ For AMD GPU mining, the host machine (i.e., the machine running `dockerd`) **MUS
 
 If not using the AMDGPU-PRO drivers, insure that you have the proper [OpenCL runtime](https://wiki.archlinux.org/index.php/GPGPU#OpenCL_Runtime) installed as well. This is pre-packed with the AMDGPU-PRO drivers only.
 
-Note that you must pass the proper device to the Docker container at runtime -- in this case, that means using the `--device` flag to pass through the AMD card (most often `/dev/dri`).
+Note that you must pass the proper device to the Docker container at runtime -- in this case, that means using the `--device` flag to pass through the AMD card. Usually passing `/dev/dri` is all that is required, but passing `/dev/kfd` may also be required (or increase hashrate).
 
 If you encounter an error such as `CL_OUT_OF_HOST_MEMORY`, some environment variables may be required to run properly. Trying using some or all of the variables below:
 ```
