@@ -36,7 +36,7 @@ To help create an XMRig config file, use [this](https://config.xmrig.com/) websi
 ## Host Configuration
 For AMD GPU mining, the host machine (i.e., the machine running `dockerd`) **MUST** have AMD drivers installed. This most often means AMDGPU or AMDGPU-PRO, but supposedly both the open source ATI drivers and the proprietary Catalyst drivers work as well. Check out [this Arch Linux Wiki page](https://wiki.archlinux.org/index.php/Xorg#AMD) for information on which driver to use. Most Linux distributions will have AMD drivers available in their corresponding package repositories; otherwise, refer to the [AMD Download Drivers](https://support.amd.com/en-us/download) site.
 
-If not using the AMDGPU-PRO drivers, ensure that you have the proper [OpenCL runtime](https://wiki.archlinux.org/index.php/GPGPU#OpenCL_Runtime) installed as well. This is pre-packed with the AMDGPU-PRO drivers only.
+If not using the AMDGPU-PRO drivers, ensure that you have the proper [OpenCL runtime](https://wiki.archlinux.org/index.php/GPGPU#OpenCL_Runtime) installed as well. This is pre-packaged with the AMDGPU-PRO drivers only.
 
 Note that you must pass the proper device to the Docker container at runtime -- in this case, that means using the `--device` flag to pass through the AMD card. Usually passing `/dev/dri` is all that is required, but passing `/dev/kfd` may also be required (or increase hashrate).
 
