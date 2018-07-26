@@ -1,0 +1,13 @@
+[Unit]
+Description=XMRig OpenCL Monero miner
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+## `--env-file` may or may not be required
+ExecStart=/usr/bin/docker run --rm --device /dev/dri --env-file /etc/xmrig/amd-config.env --name %n -v /etc/xmrig/amd-config.json:/usr/local/bin/config.json:ro merxnet/xmrig-amd
+ExecStop=/usr/bin/docker stop %n
+
+[Install]
+WantedBy=multi-user.target
