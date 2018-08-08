@@ -29,7 +29,7 @@ RUN apt-get -y update && apt-get -y upgrade && \
     SUDO_FORCE_REMOVE=yes apt-get -y remove --purge ca-certificates curl xz-utils $(apt-mark showauto) && \
     ./amdgpu-pro-${AMDGPU_VERSION}/amdgpu-install -y --no-install-recommends --headless --opencl=legacy,rocm && \
     rm -r amdgpu-pro-${AMDGPU_VERSION} && \
-    rm -rf /var/lib/apt/lists/* /usr/src/amdgpu-18.20-606296/ /var/opt/amdgpu-pro-local/
+    rm -rf /var/lib/apt/lists/* /usr/src/amdgpu-${AMDGPU_VERSION}/ /var/opt/amdgpu-pro-local/
 
 COPY --from=build /xmrig-amd/build/xmrig-amd /usr/local/bin/xmrig-amd
 
